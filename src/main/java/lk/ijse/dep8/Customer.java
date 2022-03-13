@@ -1,19 +1,24 @@
 package lk.ijse.dep8;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Customer implements Serializable {
     private String id;
     private String name;
     private String address;
+    private byte[] picture;
+
+
 
     public Customer() {
     }
 
-    public Customer(String id, String name, String address) {
+    public Customer(String id, String name, String address,byte[] picture) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.picture = picture;
     }
 
     public String getId() {
@@ -38,6 +43,23 @@ public class Customer implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", picture=" + Arrays.toString(picture) +
+                '}';
     }
 
     public void printDetails(){
