@@ -11,7 +11,7 @@ public class SerializeDemo {
 
 
     public static void main(String[] args) throws IOException {
-        Customer customer = new Customer("C001","kasun","Kolonna",new byte[10]);
+        Customer customer = new Customer("C001","kasun","Kolonna",new byte[10],"picture");
 
         String homeDirPath = System.getProperty("user.home");
         Path dirPath = Paths.get(homeDirPath, "Desktop", "Serializable Demos");

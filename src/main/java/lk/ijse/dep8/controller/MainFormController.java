@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import lk.ijse.dep8.Customer;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,22 +62,12 @@ public class MainFormController {
 
         initDatabase();
 
-//        txtPicture.textProperty().addListener(observable -> {
-//            if (!txtPicture.getText().trim().isEmpty()){
-//                ByteArrayInputStream bis = new ByteArrayInputStream(file.getAbsolutePath().
-//                        getBytes(StandardCharsets.UTF_8));
-//                Image image = new Image(bis);
-//                img1.setImage(image);
-//
-//            }
-//        });
-
         tblCustomer.getSelectionModel().selectedItemProperty().addListener(observable -> {
             btnSave.setText("Update");
             txtId.setText(tblCustomer.getSelectionModel().getSelectedItem().getId());
             txtName.setText(tblCustomer.getSelectionModel().getSelectedItem().getName());
             txtAddress.setText(tblCustomer.getSelectionModel().getSelectedItem().getAddress());
-            txtPicture.setText("PICTURE");
+            txtPicture.setText(tblCustomer.getSelectionModel().getSelectedItem().getPicPath());
 
         });
 
@@ -118,7 +109,8 @@ public class MainFormController {
                     txtId.getText(),
                     txtName.getText(),
                     txtAddress.getText(),
-                    picture);
+                    picture,
+                    txtPicture.getText());
             tblCustomer.getItems().add(newCustomer);
             boolean result = saveCustomers();
 
@@ -130,11 +122,13 @@ public class MainFormController {
                 txtName.clear();
                 txtAddress.clear();
                 txtPicture.clear();
+                img1.setImage(null);
             }
 
             txtId.requestFocus();
         }
         else{
+            /*TODO: Updating part*/
 
         }
 
@@ -188,6 +182,11 @@ public class MainFormController {
 
         if (file != null){
             txtPicture.setText(file.getAbsolutePath());
+            try {
+                img1.setImage(new Image(String.valueOf(file.toURI().toURL())));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
         }
     }
